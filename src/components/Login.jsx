@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
+import { context } from "../API/Provider";
 
 export default function Login() {
-    
+    const {login,token}=useContext(context)
+
   const [user, setuser] = useState({});
 
   const handlechange = (e) => {
@@ -12,6 +14,11 @@ export default function Login() {
   };
 
   
+  if(token)
+  {
+    window.location="/"
+    return ""
+  }
   return (
     <div>
       <div className="container mt-5">
@@ -32,7 +39,7 @@ export default function Login() {
               className="form-control mt-2"
             />
             <button
-             
+             onClick={()=>login(user)}
               className="btn btn-info mt-2 form-control"
             >
               login

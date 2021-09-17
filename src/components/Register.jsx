@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
+import { context } from "../API/Provider";
 
 export default function Register() {
+  const {register,token}=useContext(context)
+  
   const [user, setuser] = useState({});
 
   const handlechange = (e) => {
@@ -10,6 +13,11 @@ export default function Register() {
     });
   };
 
+
+  if (token) {
+    window.location = "/";
+    return "";
+  }
   return (
     <div>
       <div className="container mt-5">
@@ -37,9 +45,10 @@ export default function Register() {
               className="form-control mt-2"
             />
             <button
+            onClick={()=>register(user)}
               className="btn btn-info mt-2 form-control"
             >
-              login
+              register
             </button>
           </div>
         </div>

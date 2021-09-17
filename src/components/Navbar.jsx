@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { context } from "../API/Provider";
 
 export default function Navbar() {
+  const {logout}=useContext(context)
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
@@ -20,13 +22,20 @@ export default function Navbar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-         
+          {localStorage.getItem("token") ? (
+            <>
             <li className="nav-item active">
               <Link className="nav-link" to="/">
-                dashboard<span className="sr-only">({avatar})</span>
+                products
               </Link>
             </li>
-       
+
+             <li class="nav-item">
+                <button onClick={logout} class="dropdown-item">logout</button>
+              </li>
+          </>
+          ) : (
+            <>
               <li className="nav-item">
                 <Link className="nav-link" to="/login">
                   login
@@ -37,11 +46,8 @@ export default function Navbar() {
                   register
                 </Link>
               </li>
-          <li class="nav-item dropdown">
-            <button class="dropdown-item" >
-              logout
-            </button>
-          </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
